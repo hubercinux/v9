@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+        <record model='ir.ui.view' id='view_account_invoice_custom_form'>
+            <field name='name'>account.invoice.custom.form.inherit</field>
+            <field name='model'>account.invoice</field>
+            <field name='inherit_id' ref='account.invoice_form'/>
+            <field name='arch' type='xml'>
+             
+            <!--
+               <xpath expr="//button[@name='invoice_open']" position="replace">
+                    <button name="invoice_open" states="draft" string="Validate" class="oe_highlight" groups="base.valid_invoice"/>
+                </xpath>
+            -->
+
+                <field name="partner_id" position='before'>
+                    <field name="ruc_dni" placeholder='Busqueda de cliente por RUC/DNI'/>
+                </field>
+                <field name="team_id" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="journal_id" position='replace' />
+                <field name="ruc_dni" position='before'>   
+                    <!--
+                    <field name="journal_id" string="Tipo Documento" on_change="onchange_journal_id(journal_id, context)" widget="selection" domain="[('type','=','sale')]"/> -->
+                    <field name="journal_id" groups="account.group_account_user" string="Tipo Documento" options="{'no_create': True}" attrs="{'readonly':[('move_name','!=',False)]}"/>
+                </field>                
+            </field>
+        </record>
+    </data>
+</openerp>

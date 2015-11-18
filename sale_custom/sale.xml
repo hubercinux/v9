@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+	<data>
+        <record model='ir.ui.view' id='view_sale_order_custom_form'>
+                <field name='name'>sale.order.custom.form.inherit</field>
+                <field name='model'>sale.order</field>
+                <field name='inherit_id' ref='sale.view_order_form'/>
+                <field name='arch' type='xml'>
+                    <field name="date_order" position='attributes'>
+                        <attribute name="invisible">0</attribute>
+                    </field>
+                    <field name="partner_id" position='before'>
+                        <field name="ruc_dni" placeholder='Busqueda de cliente por RUC/DNI' />
+                	</field>
+                    <field name="project_id" position='attributes'>
+                        <attribute name="invisible">1</attribute>
+                    </field>
+                </field>
+        </record>
+	</data>
+</openerp>

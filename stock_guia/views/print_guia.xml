@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="paperformat_stock_guia" model="report.paperformat">
+            <field name="name">A4 print guia</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False" />
+            <!--<field name="header_spacing"></field>-->
+            <field name="dpi">130</field>
+        </record>
+
+        <!--Asociar el reporte al formato de hoja mediante el tributo ref="name_modulo.id_formato_hoja" -->
+        <!--id=id_reporte" definido arriba-->
+        <record id="stock.action_report_delivery" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="stock_guia.paperformat_stock_guia"/>
+        </record>
+        
+        <template id="report_print_guia_custom" inherit_id="stock.report_delivery_document">
+            <!--<xpath expr="//div[@class='page']" position="replace">-->
+            <xpath expr="//t[@t-call='report.external_layout']" position="replace">
+                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+                <div class="page">
+
+    <!-- Dato de empre!-->    
+                    <div class='row'>
+                        <div class="col-xs-8" style="padding-right: 0px;">
+                            <div class="col-xs-2" style="font-size:11px; background-color: #ffffff; padding-left: 0px; padding-right: 0px;">
+                                <span><strong>CLIENTE:</strong></span>
+                            </div>
+                            <div class="col-xs-10" style="font-size:11px; background-color: #ffffff; padding-left: 0px; padding-right: 0px;">
+                                <span t-field="o.partner_id" />  
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4" style="padding-left: 0px; padding-right: 0px;">
+                            <div class="col-xs-4" style="font-size:11px; background-color: #ffffff; padding-left: 0px; padding-right: 0px;">
+                                <span><strong>GUIA N°:</strong></span>
+                            </div>
+                            <div class="col-xs-8" style="font-size:12px; background-color: #ffffff; padding-right: 0px;">
+                                <span t-field="o.name" />
+                            </div>                            
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <div class="col-xs-8" style="padding-right: 0px;">
+                            <div class="col-xs-2" style="font-size:11px; background-color:#ffffff; padding-left: 0px; padding-right: 0px;">
+                                <span><strong>RUC / DNI:</strong></span>
+                            </div>
+                            <div class="col-xs-10" style="font-size:11px; background-color:#ffffff; padding-left: 0px; padding-right: 0px;">
+                                <span t-field="o.partner_id.doc_number"/>  
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4" style="padding-left: 0px; padding-right: 0px;">
+                            <div class="col-xs-4" style="font-size:11px; background-color:#ffffff; padding-left: 0px; padding-right: 0px;">
+                                <span><strong>FECHA DOC:</strong></span>
+                            </div>
+                            <div class="col-xs-8" style="font-size:11px; background-color:#ffffff; padding-right: 0px;">
+                                <span t-field="o.date"/>
+                            </div>                            
+                        </div>
+                    </div>    
+
+                    <div class='row'>
+                        <div class="col-xs-8" style="padding-right: 0px;">
+                            <div class="col-xs-2" style="font-size:11px; background-color:#ffffff; padding-left: 0px; padding-right: 0px;">
+                                <span><strong>DIRECCION:</strong></span>
+                            </div>
+                            <div class="col-xs-10" style="font-size:11px; background-color:#ffffff; padding-left: 0px; padding-right: 0px;">
+                                <span t-field="o.partner_id.street"/><br/><span t-field="o.partner_id.state_id.complete_name"/><span> - </span>  <span t-field="o.partner_id.state_id.country_id"/>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4" style="padding-left: 0px; padding-right: 0px;">
+                            <div>
+                                <div class="col-xs-6" style="font-size:11px; background-color:#ffffff; padding-left: 0px; padding-right: 0px;">
+                                    <span><strong>FECHA DE EMISION:</strong></span>
+                                </div>
+                                <div class="col-xs-6" style="font-size:11px; background-color:#ffffff; padding-left: 0px; padding-right: 0px;">
+                                    <span t-field="o.date_done" />
+                                </div>
+                            </div><br/>
+                            <div>
+                                <div class="col-xs-6" style="font-size:11px; background-color:#ffffff; padding-left: 0px; padding-right: 0px;">
+                                    <span><strong>N° DE PEDIDO:</strong></span>
+                                </div>
+                                <div class="col-xs-6" style="font-size:11px; background-color:#ffffff; padding-left: 0px; padding-right: 0px;">
+                                    <span t-field="o.group_id" />
+                                </div>
+                            </div>                          
+                        </div>
+                    </div>   
+    <!-- Tramos I-->                    
+                    <div class='row'>
+                        <div class="col-xs-12" style="padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span><strong>TRAMO I:</strong></span>
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <div class="col-xs-3" style="width: 18%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span><strong>PUNTO DE PARTIDA:</strong></span>
+                        </div>
+                        <div class="col-xs-9" style="width: 82%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span t-field="o.partida_id"/> - <span t-field="o.partida_id.state_id.complete_name"/> - <span t-field="o.partida_id.state_id.country_id.name"/>                              
+                        </div>
+                    </div>
+
+                    <div class='row' t-if=" not o.tramoii">
+                        <div class="col-xs-3" style="width: 18%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span><strong>PUNTO DE LLEGADA:</strong></span>
+                        </div>
+                        <div class="col-xs-9" style="width: 82%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;"   >
+                            <span t-field="o.llegadacliente_id.street"/> - <span t-field="o.llegadacliente_id.state_id.complete_name"/> - <span t-field="o.llegadacliente_id.country_id.name"/>                           
+                        </div>                        
+                    </div>
+                    <div class='row'  t-if="o.tramoii">
+                        <div class="col-xs-3" style="width: 18%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span><strong>PUNTO DE LLEGADA:</strong></span>
+                        </div>
+                        <div class="col-xs-9" style="width: 82%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;" >
+                            <span t-field="o.partida2_id"/> - <span t-field="o.partida2_id.state_id.complete_name"/> - <span t-field="o.partida2_id.state_id.country_id.name"/>                          
+                        </div>
+                    </div>
+
+    <!-- Tramos II-->
+                    <div class='row' t-if="o.tramoii">
+                        <div class="col-xs-12" style="padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span><strong>TRAMO II:</strong></span>
+                        </div>
+                    </div>
+
+                    <div class='row' t-if="o.tramoii">
+                        <div class="col-xs-3" style="width: 18%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span><strong>PUNTO DE PARTIDA:</strong></span>
+                        </div>
+                        <div class="col-xs-9" style="width: 82%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span t-field="o.partida2_id"/> - <span t-field="o.partida2_id.state_id.complete_name"/> - <span t-field="o.partida2_id.state_id.country_id.name"/>                          
+                        </div>
+                    </div>
+
+                    <div class='row' t-if="o.tramoii">
+                        <div class="col-xs-3" style="width: 18%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span><strong>PUNTO DE LLEGADA:</strong></span>
+                        </div>
+                        <div class="col-xs-9" style="width: 82%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span t-field="o.llegada2_id"/> - <span t-field="o.llegada2_id.state_id.complete_name"/> - <span t-field="o.llegada2_id.state_id.country_id.name"/>                           
+                        </div>
+                    </div>                                                        
+    <!-- Detalles del productos en la guia --> 
+                    <table class="table table-condensed mt48" t-if="o.move_lines" style="margin-top: 10px; margin-bottom: 0px;">
+                        <thead>
+                            <tr>
+                                <th><strong style="font-size:11px;" >PRODUCTO</strong></th>
+                                <th class="text-right"><strong style="font-size:11px;">CANTIDAD</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.move_lines" t-as="move">
+                                <td style="font-size:11px; padding-bottom: 2px; padding-top: 2px;" ><span t-field="move.product_id" style="font-size:11px;"/></td>
+                                <td class="text-right" style="font-size:11px; padding-bottom: 2px; padding-top: 2px;">
+                                    <span t-field="move.product_uom_qty" style="font-size:11px;"/>
+                                    <span t-field="move.product_uom" style="font-size:11px;"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class='row'>
+                        <div class="col-xs-9" style="text-align:right; width:80%">
+                            <span><strong style="font-size:11px;">TOTAL:</strong></span>
+                        </div>
+                        <div class="col-xs-3" style="text-align:right; padding-left: 0px; border-top: 1px solid #000000; margin_left:5px; width:18%">
+                            <span t-field="o.count_product" style="font-size:11px;"/>
+                        </div>
+                    </div> 
+
+                    <div class='row' style="margin-top: 10px;">
+                        <div class="col-xs-1" style="padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span><strong>NOTA:</strong></span>
+                        </div>
+                        <div class="col-xs-11" style="padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span t-field="o.note"/>
+                        </div>
+                    </div> 
+
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		<record model="ir.actions.act_window" id="action_open_stock_transportista_form">
+            <field name="name">Empresas transportistas</field>
+            <field name="res_model">stock.transportista</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+		
+    	<menuitem name="Transportista" id="menu_trasnportistas_form" parent="stock.menu_stock_root"/>
+        <menuitem name="Transportistas" id="menu_trasnportistas_config_form" action="action_open_stock_transportista_form" parent="menu_trasnportistas_form"/>    	
+
+        <record model="ir.ui.view" id="view_stock_transportista_tree">
+                <field name="name">stock.transportista.tree</field>
+                <field name="model">stock.transportista</field>
+                <field name="arch" type="xml">
+                	<tree string="Lista de Transportista">
+			    		<field name="name"/>
+			    		<field name="ruc"/>
+					</tree>
+				</field>
+        </record>
+
+        <record id="view_stock_transportista_form" model="ir.ui.view">
+            <field name="name">Stock Transportista form</field>
+            <field name="model">stock.transportista</field>
+            <field name="arch" type="xml">
+	            <form string="Nuevo registro">
+	                <sheet>
+	                    <group>
+                          <field name="name"/>
+                          <field name="ruc"/> 
+	                    </group> 
+	                    <notebook>
+	                        <page  string="Direccion de Sucursales">
+		                        <field name="street_ids">
+		                            <tree string="Sucursales" editable="bottom">
+		                                <field name="name"/>
+		                                <field name="state_id"/>
+		                                <field name="active"/>
+		                            </tree>
+		                        </field>
+	                        </page>
+
+	                        <page  string="Conductores">
+	                          	<field name="conductor_ids">
+		                            <tree string="Conductores" editable="bottom">
+		                                <field name="name"/>
+		                                <field name="licencia"/>
+		                                <field name="active"/>
+		                            </tree>
+	                          	</field>
+	                        </page>
+
+	                        <page  string="Unidades de Transporte">
+	                          	<field name="movilidad_ids">
+		                            <tree string="Unidades de Transporte" editable="bottom">
+		                                <field name="name"/>
+		                                <field name="marca"/>
+		                                <field name="active"/>
+		                            </tree>
+	                          	</field>
+	                        </page>
+	                    </notebook>	                    
+	                </sheet>      	                
+	            </form>
+            </field> 
+        </record>
+
+        <record model="ir.ui.view" id="view_stock_picking_transportista_form">
+	        <field name="name">stock.picking.transportista.form</field>
+	        <field name="model">stock.picking</field>
+	        <field name="inherit_id" ref="stock.view_picking_form"/>
+	        <field name="arch" type="xml">
+	        	<page name="extra" position="before">
+                    <page string="Tramos">
+                    	<group><field name="tramoii"/></group>	
+	                	<group>
+	                		 <group string="Tramo I">
+	                                <field name="transportista_id"/>
+	                                <field name="conductor_id" domain="[('transportista_id','=',transportista_id)]" />
+	                                <field name="movilidad_id" domain="[('transportista_id','=',transportista_id)]" />
+	                                <field name="partida_id" domain="[('transportista_id','=',transportista_id)]" />
+	                                <field name="llegadacliente_id" domain="[('customer','=',True)]" attrs="{'invisible': [('tramoii','=', True)]}" />
+	                        </group>
+	                        <group string="Tramo II" attrs="{'invisible': [('tramoii','=', False)]}" >                               
+	                                <field name="transportista2_id"/>
+	                                <field name="conductor2_id" domain="[('transportista_id','=',transportista2_id)]" />
+	                                <field name="movilidad2_id" domain="[('transportista_id','=',transportista2_id)]" />
+	                                <field name="partida2_id" domain="[('transportista_id','=',transportista2_id)]" />  
+	                                <field name="llegada2_id" domain="[('transportista_id','=',transportista2_id)]" />
+	                                <field name="llegadacliente2_id" domain="[('customer','=',True)]" />
+	                            </group>
+	                	</group>
+
+                    </page>
+                </page>
+	        </field>
+    	</record>
+
+   </data>
+</openerp>

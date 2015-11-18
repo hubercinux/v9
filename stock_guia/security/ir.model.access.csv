@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_guia_user,stock.guia user,model_stock_guia,stock.group_stock_user,1,1,1,1
+
+access_stock_transportista_user,stock.transportista user,model_stock_transportista,stock.group_stock_user,1,1,1,1
+
+access_stock_transportista_sede_user,stock.transportista.street user,model_stock_transportista_street,stock.group_stock_user,1,1,1,1
+
+access_stock_transportista_conductor_user,stock.transportista.conductor user,model_stock_transportista_conductor,stock.group_stock_user,1,1,1,1
+
+access_stock_transportista_movilidad_user,stock.transportista.movilidad user,model_stock_transportista_movilidad,stock.group_stock_user,1,1,1,1
