@@ -7,10 +7,10 @@
             <field name="default" eval="True"/>
             <field name="format">A4</field>
             <field name="orientation">Portrait</field>
-            <field name="margin_top">20</field>
-            <field name="margin_bottom">20</field>
-            <field name="margin_left">10</field>
-            <field name="margin_right">10</field>
+            <field name="margin_top">67</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">20</field>
+            <field name="margin_right">9</field>
             <field name="header_line" eval="False" />
             <!--<field name="header_spacing"></field>-->
             <field name="dpi">130</field>
@@ -100,7 +100,7 @@
                     </div>   
     <!-- Tramos I-->                    
                     <div class='row'>
-                        <div class="col-xs-12" style="padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                        <div class="col-xs-12" style="padding-right: 0px; font-size:10px; background-color:#ffffff;text-decoration: underline;">
                             <span><strong>TRAMO I:</strong></span>
                         </div>
                     </div>
@@ -115,30 +115,54 @@
                     </div>
 
                     <div class='row' t-if=" not o.tramoii">
-                        <div class="col-xs-3" style="width: 18%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                        <div class="col-xs-3" style="width: 20%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
                             <span><strong>PUNTO DE LLEGADA:</strong></span>
                         </div>
-                        <div class="col-xs-9" style="width: 82%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;"   >
+                        <div class="col-xs-9" style="width: 80%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;"   >
                             <span t-field="o.llegadacliente_id.street"/> - <span t-field="o.llegadacliente_id.state_id.complete_name"/> - <span t-field="o.llegadacliente_id.country_id.name"/>                           
                         </div>                        
                     </div>
                     <div class='row'  t-if="o.tramoii">
-                        <div class="col-xs-3" style="width: 18%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                        <div class="col-xs-3" style="width: 20%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
                             <span><strong>PUNTO DE LLEGADA:</strong></span>
                         </div>
-                        <div class="col-xs-9" style="width: 82%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;" >
+                        <div class="col-xs-9" style="width: 80%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;" >
                             <span t-field="o.partida2_id"/> - <span t-field="o.partida2_id.state_id.complete_name"/> - <span t-field="o.partida2_id.state_id.country_id.name"/>                          
+                        </div>
+                    </div>
+                    <div class='row' name="transportista" style="margin-top: 7px;">
+                        <div class="col-xs-3" style="width: 18%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span><strong>TRANSPORTISTA:</strong></span>
+                        </div>
+                        <div class="col-xs-9" style="width: 82%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span t-field="o.transportista_id.name"/> | RUC: <span t-field="o.transportista_id.ruc"/>
+                        </div>
+                    </div>                    
+                    <div class='row' name="marca">
+                        <div class="col-xs-3" style="width: 10%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span><strong>MARCA:</strong></span>
+                        </div>
+                        <div class="col-xs-9" style="width: 90%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span t-field="o.movilidad_id.marca"/> | PLACA: <span t-field="o.movilidad_id.name"/>
+                        </div>
+                    </div>
+                    <div class='row' name="conductor">
+                        <div class="col-xs-3" style="width: 10%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span><strong>CHOFER:</strong></span>
+                        </div>
+                        <div class="col-xs-9" style="width: 90%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span t-field="o.conductor_id.name"/> | LICENCIA DE CONDUCIR: <span t-field="o.conductor_id.licencia"/>
                         </div>
                     </div>
 
     <!-- Tramos II-->
-                    <div class='row' t-if="o.tramoii">
-                        <div class="col-xs-12" style="padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                    <div class='row' t-if="o.tramoii" style="margin-top: 7px;">
+                        <div class="col-xs-12" style="padding-right: 0px; font-size:10px; background-color:#ffffff;text-decoration: underline">
                             <span><strong>TRAMO II:</strong></span>
                         </div>
                     </div>
 
-                    <div class='row' t-if="o.tramoii">
+                    <div class='row' t-if="o.tramoii" >
                         <div class="col-xs-3" style="width: 18%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
                             <span><strong>PUNTO DE PARTIDA:</strong></span>
                         </div>
@@ -147,14 +171,30 @@
                         </div>
                     </div>
 
-                    <div class='row' t-if="o.tramoii">
-                        <div class="col-xs-3" style="width: 18%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                    <div class='row' t-if="o.tramoii" >
+                        <div class="col-xs-3" style="width: 20%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
                             <span><strong>PUNTO DE LLEGADA:</strong></span>
                         </div>
-                        <div class="col-xs-9" style="width: 82%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                        <div class="col-xs-9" style="width: 80%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;">
                             <span t-field="o.llegada2_id"/> - <span t-field="o.llegada2_id.state_id.complete_name"/> - <span t-field="o.llegada2_id.state_id.country_id.name"/>                           
                         </div>
                     </div>                                                        
+                    <div class='row' name="transportista" style="margin-top: 7px;">
+                        <div class="col-xs-3" style="width: 17%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span><strong>TRANSPORTISTA:</strong></span>
+                        </div>
+                        <div class="col-xs-9" style="width: 83%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span t-field="o.transportista2_id.name"/> | RUC:  <span t-field="o.transportista_id.ruc"/>
+                        </div>
+                    </div>
+                    <div class='row' name="transportista_direcc">
+                        <div class="col-xs-3" style="width: 13%; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span><strong>DIRECCION:</strong></span>
+                        </div>
+                        <div class="col-xs-9" style="width: 87%; padding-left: 0px; padding-right: 0px; font-size:10px; background-color:#ffffff;">
+                            <span t-field="o.partida2_id.name"/> - <span t-field="o.partida2_id.state_id.complete_name"/>
+                        </div>
+                    </div> 
     <!-- Detalles del productos en la guia --> 
                     <table class="table table-condensed mt48" t-if="o.move_lines" style="margin-top: 10px; margin-bottom: 0px;">
                         <thead>
@@ -178,7 +218,7 @@
                             <span><strong style="font-size:11px;">TOTAL:</strong></span>
                         </div>
                         <div class="col-xs-3" style="text-align:right; padding-left: 0px; border-top: 1px solid #000000; margin_left:5px; width:18%">
-                            <span t-field="o.count_product" style="font-size:11px;"/>
+                             <span t-field="o.count_product" style="font-size:11px;"/><span style="font-size:11px;"> UND</span>
                         </div>
                     </div> 
 
